@@ -1,0 +1,80 @@
+---
+title: "Introduction to spectralscale"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{spectralscale}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7
+)
+```
+
+```{r setup}
+library(ggplot2)
+theme_set(theme_minimal())
+```
+
+
+
+
+## Palettes
+
+### Proposal
+
+```{r}
+spectralscale::palette_overview()
+```
+
+### CVD & desaturation
+
+```{r}
+spectralscale::palette_overview(colorspace::deutan)
+spectralscale::palette_overview(colorspace::tritan)
+spectralscale::palette_overview(colorspace::protan)
+spectralscale::palette_overview(colorspace::desaturate)
+```
+
+## Scales
+
+## Demos
+
+### Continuous
+
+```{r}
+v <- ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
+       geom_tile()
+v + spectralscale::fill_c()
+v + spectralscale::fill_c("cold")
+v + spectralscale::fill_c("div", mid = 0.02)
+```
+
+### Binned
+
+```{r}
+v + spectralscale::fill_b("warm") # default
+v + spectralscale::fill_b("cold")
+v + spectralscale::fill_b("div", mid = 0.0175, n.breaks = 8)
+```
+
+### Discrete
+
+```{r}
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+d <- ggplot(dsamp, aes(carat, price)) +
+  geom_point(aes(colour = clarity), size = 3)
+
+d <- ggplot(dsamp, aes(depth, price)) +
+  geom_point(aes(colour = cut), size = 3)
+
+d + spectralscale::colour_d("warm")
+d + spectralscale::colour_d("cold")
+d + spectralscale::colour_d("div") # default
+d + spectralscale::colour_d("qual")
+d + spectralscale::colour_d("pair")
+```
