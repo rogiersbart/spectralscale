@@ -1,20 +1,19 @@
 Package: spectralscale
 Type: Package
-Title: A consistent set of palettes based on ColorBrewer's Spectral
+Title: A consistent set of palettes and scales based on Spectral
 Version: 0.0.0.9000
 Authors@R: person(
     given = "Bart",
     family = "Rogiers",
     email = "rogiers.bart@gmail.com",
-    role = c("aut", "cre"),
-    comment = c(ORCID = "0000-0002-8836-0988",
-                url = "<https://rogiersbart.github.io>"))
+    role = c("cre", "aut"),
+    comment = c(ORCID = "0000-0002-8836-0988"))
 Description: This package provides a consistent set of palettes, all based on
     the ColorBrewer Spectral palette, as approximated in hcl space by the recent 
     colorspace package. The different palettes and corresponding ggplot2 scales
     should be able to handle most use cases for continuous and discrete scales,
-    including sequential, diverging and qualitative palettes, with a single or
-    multiple hue gradients. Moreover, they all have been checked with respect
+    including sequential, diverging and qualitative palettes, with single or
+    double hue gradients. Moreover, they all have been checked with respect
     to the different types of CVD, and should behave reasonably well for most
     people.
 License: MIT + file LICENSE
@@ -28,3 +27,8 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
+URL: https://github.com/rogiersbart/spectralscale
+BugReports: https://github.com/rogiersbart/spectralscale/issues
+

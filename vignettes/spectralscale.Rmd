@@ -1,5 +1,5 @@
 ---
-title: "Introduction to spectralscale"
+title: "Start using spectralscale"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{spectralscale}
