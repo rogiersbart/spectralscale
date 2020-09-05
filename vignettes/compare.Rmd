@@ -1,0 +1,33 @@
+---
+title: "Compare with standards"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{compare}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(spectralscale)
+```
+
+- viridis
+- colorblindr?
+
+### Color vision deficiency
+
+```{r}
+spectralscale:::palette_overview(colorspace::deutan)
+spectralscale:::palette_overview(colorspace::tritan)
+spectralscale:::palette_overview(colorspace::protan)
+spectralscale:::palette_overview(colorspace::desaturate)
+```
+
+### Grayscale

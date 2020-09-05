@@ -1,6 +1,6 @@
 Package: spectralscale
 Type: Package
-Title: A consistent set of palettes and scales based on Spectral
+Title: A consistent set of Spectral-based palettes and scales
 Version: 0.0.0.9000
 Authors@R: person(
     given = "Bart",
@@ -28,7 +28,6 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 URL: https://github.com/rogiersbart/spectralscale
 BugReports: https://github.com/rogiersbart/spectralscale/issues
-

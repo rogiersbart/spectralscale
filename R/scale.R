@@ -1,15 +1,22 @@
 # TODO ----
 
-  #' Expose guide to user
-  #' Evaluate whether guide_bins is better or not for binned scales
+  # Expose guide to user
+  # Evaluate whether guide_bins is better or not for binned scales
+  # Add rev argument
+  # Add div/mid for discrete scales
+  # Documentation!
+  # Check if we can set option to expose traditional UI through .onload?
 
 # scale creation functions ----
 
+  reverse_palette <- function(palette, rev = FALSE) {
+    function(...) if (rev) rev(palette(...)) else palette(...)
+  }
   create_discrete_fill_scale <- function(palette) {
-    function (...) ggplot2::discrete_scale(
+    function (..., rev = FALSE) ggplot2::discrete_scale(
       "fill",
       "spectralscale_discrete_fill_scale",
-      palette = palette,
+      palette = reverse_palette(palette, rev = rev),
       guide = "legend",
       ...
     )
@@ -17,20 +24,20 @@
   create_continuous_fill_scale <- function(palette, div = FALSE) {
     if (div) {
       return(
-        function(mid = 0, ...) ggplot2::continuous_scale(
+        function(mid = 0, rev = FALSE, ...) ggplot2::continuous_scale(
           "fill",
           "spectralscale_continuous_fill_scale",
-          palette = scales::gradient_n_pal(palette(7)),
+          palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
           guide = "colourbar",
           rescaler = colorspace:::mid_rescaler(mid),
           ...
         )
       )
     }
-    function(...) ggplot2::continuous_scale(
+    function(..., rev = FALSE) ggplot2::continuous_scale(
       "fill",
       "spectralscale_continuous_fill_scale",
-      palette = scales::gradient_n_pal(palette(7)),
+      palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
       guide = "colourbar",
       ...
     )
@@ -38,29 +45,29 @@
   create_binned_fill_scale <- function(palette, div = FALSE) {
     if (div) {
       return(
-        function(mid = 0, ...) ggplot2:::binned_scale(
+        function(mid = 0, rev = FALSE, ...) ggplot2:::binned_scale(
           "fill",
           "spectralscale_binned_fill_scale",
-          palette = scales::gradient_n_pal(palette(7)),
+          palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
           guide = "colourbar",
           rescaler = colorspace:::mid_rescaler(mid),
           ...
         )
       )
     }
-    function(...) ggplot2:::binned_scale(
+    function(..., rev = FALSE) ggplot2:::binned_scale(
       "fill",
       "spectralscale_binned_fill_scale",
-      palette = scales::gradient_n_pal(palette(7)),
+      palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
       guide = "colourbar",
       ...
     )
   }
   create_discrete_colour_scale <- function(palette) {
-    function(...) ggplot2::discrete_scale(
+    function(..., rev = FALSE) ggplot2::discrete_scale(
       "colour",
       "spectralscale_discrete_colour_scale",
-      palette = palette,
+      palette = reverse_palette(palette, rev = rev),
       guide = "legend",
       ...
     )
@@ -68,10 +75,10 @@
   create_continuous_colour_scale <- function(palette, div = FALSE) {
     if (div) {
       return(
-        function(mid = mid, ...) ggplot2::continuous_scale(
+        function(mid = 0, rev = FALSE, ...) ggplot2::continuous_scale(
           "colour",
           "spectralscale_continuous_colour_scale",
-          palette = scales::gradient_n_pal(palette(7)),
+          palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
           guide = "colourbar",
           na.value = "grey50",
           rescaler = colorspace:::mid_rescaler(mid),
@@ -79,10 +86,10 @@
         )
       )
     }
-    function(...) ggplot2::continuous_scale(
+    function(..., rev = FALSE) ggplot2::continuous_scale(
       "colour",
       "spectralscale_continuous_colour_scale",
-      palette = scales::gradient_n_pal(palette(7)),
+      palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
       guide = "colourbar",
       na.value = "grey50",
       ...
@@ -91,10 +98,10 @@
   create_binned_colour_scale <- function(palette, div = FALSE) {
     if (div) {
       return(
-        function(mid = mid, ...) ggplot2:::binned_scale(
+        function(mid = 0, rev = FALSE, ...) ggplot2:::binned_scale(
           "colour",
           "spectralscale_binned_colour_scale",
-          palette = scales::gradient_n_pal(palette(7)),
+          palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
           guide = "colourbar",
           na.value = "grey50",
           rescaler = colorspace:::mid_rescaler(mid),
@@ -102,10 +109,10 @@
         )
       )
     }
-    function(...) ggplot2:::binned_scale(
+    function(..., rev = FALSE) ggplot2:::binned_scale(
       "colour",
       "spectralscale_binned_colour_scale",
-      palette = scales::gradient_n_pal(palette(7)),
+      palette = scales::gradient_n_pal(reverse_palette(palette, rev = rev)(7)),
       guide = "colourbar",
       na.value = "grey50",
       ...
@@ -198,6 +205,21 @@
   color_discrete_diverging <- colour_discrete_diverging
   color_discrete_sequential_warm <- colour_discrete_sequential_warm
   color_discrete_sequential_cold <- colour_discrete_sequential_cold
+
+# main api ----
+
+  #' Scale UI
+  #'
+  #' A more traditional UI is available through internal functions if this
+  #' would make more sense to you.
+  #'
+  #' @param type Describe type.
+  #' @param ... Describe dots.
+  #' @name scale_ui
+  NULL
+
+  #' @export
+  #' @rdname scale_ui
   fill_c <- function(type = "warm", ...) {
     switch(
       type,
@@ -206,6 +228,8 @@
       div = fill_continuous_diverging(...)
     )
   }
+  #' @export
+  #' @rdname scale_ui
   colour_c <- function(type = "warm", ...) {
     switch(
       type,
@@ -214,7 +238,11 @@
       div = colour_continuous_diverging(...)
     )
   }
+  #' @export
+  #' @rdname scale_ui
   color_c <- colour_c
+  #' @export
+  #' @rdname scale_ui
   fill_b <- function(type = "warm", ...) {
     switch(
       type,
@@ -223,6 +251,8 @@
       div = fill_binned_diverging(...)
     )
   }
+  #' @export
+  #' @rdname scale_ui
   colour_b <- function(type = "warm", ...) {
     switch(
       type,
@@ -231,7 +261,11 @@
       div = colour_binned_diverging(...)
     )
   }
+  #' @export
+  #' @rdname scale_ui
   color_b <- colour_b
+  #' @export
+  #' @rdname scale_ui
   fill_d <- function(type = "qual", ...) {
     switch(
       type,
@@ -242,6 +276,8 @@
       qual = fill_discrete_qualitative(...)
     )
   }
+  #' @export
+  #' @rdname scale_ui
   colour_d <- function(type = "div", ...) {
     switch(
       type,
@@ -252,4 +288,6 @@
       qual = colour_discrete_qualitative(...)
     )
   }
+  #' @export
+  #' @rdname scale_ui
   color_d <- colour_d

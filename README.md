@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# spectralscale<br><small><font color="#333333">A consistent set of palettes and scales based on Spectral</font></small>
+# spectralscale<img src="man/figures/logo.png" align="right" width="15%"/><br><small><font color="#333333">A consistent set of Spectral-based palettes and scales</font></small>
 
 <!-- badges: start -->
 
@@ -25,10 +25,13 @@ as approximated by the recent, and excellent `colorspace` package.
 
 ## Install
 
-You can install the latest version of `spectralscale` with:
+You can install the latest version of `spectralscale` with any of the
+following:
 
 ``` r
 renv::install("rogiersbart/spectralscale")
+pak::pkg_install("rogiersbart/spectralscale")
+remotes::install_github("rogiersbart/spectralscale")
 ```
 
 ## Use

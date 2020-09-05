@@ -4,9 +4,15 @@
     <loc>https://rogiersbart.github.io/spectralscale/index.html</loc>
   </url>
   <url>
-    <loc>https://rogiersbart.github.io/spectralscale/reference/hello.html</loc>
+    <loc>https://rogiersbart.github.io/spectralscale/reference/palette_ui.html</loc>
   </url>
   <url>
-    <loc>https://rogiersbart.github.io/spectralscale/articles/spectralscale.html</loc>
+    <loc>https://rogiersbart.github.io/spectralscale/reference/scale_ui.html</loc>
+  </url>
+  <url>
+    <loc>https://rogiersbart.github.io/spectralscale/articles/compare.html</loc>
+  </url>
+  <url>
+    <loc>https://rogiersbart.github.io/spectralscale/articles/start.html</loc>
   </url>
 </urlset>
